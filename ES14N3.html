@@ -1,0 +1,28 @@
+<script>
+    class Books {
+        constructor(bookName, price, amount) {
+            this.bookName = bookName;
+            this.price = price;
+            this.amount = amount;
+            Books.totalAmount = Books.totalAmount || 0;
+            Books.totalAmount += this.amount;
+            Books.TotalPrice = Books.TotalPrice || 0;
+            Books.TotalPrice += this.subTotalPrice;
+        }
+        get subTotalPrice() {
+            return this.price * this.amount
+        }
+        outSub() {
+            console.log(`销售《${this.bookName}》${this.amount}本，合计${this.subTotalPrice}元`);
+        }
+        static outToal() {
+            console.log(`累计销售图书${Books.totalAmount}本，累计${Books.TotalPrice}元`);
+
+        }
+    }
+    let books1 = new Books('数据库', 30.23, 20);
+    books1.outSub();
+    let books2 = new Books('PHP', 40.5, 10);
+    books2.outSub();
+    Books.outToal();
+</script>

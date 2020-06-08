@@ -1,0 +1,25 @@
+<script>
+    let phonePrice = {
+        Mate30: 4999,
+        iPhoneXR: 4899,
+        OnePlus: 3999,
+        GalaxyA90: 4499,
+        Redmi10X: 999
+    };
+    let hander = {
+        ownKeys(target) {
+            return Reflect.ownKeys(target).filter(key => key != 'Mate30' && key != 'iPhoneXR')
+        },
+        deleteProperty: function (property, sourse) { //property 是传进来的对象，sourse是删除的键
+            if (sourse != 'Mate30' && sourse != "iPhoneXR")
+                Reflect.deleteProperty(property, sourse);
+            else
+                throw new TypeError(`属性${sourse}不能删除`);
+        }
+    }
+    let phonePx = new Proxy(phonePrice, hander);
+    console.log(Object.keys(phonePx));
+    delete phonePx.OnePlus;
+    console.log(Object.keys(phonePx));
+    delete phonePx.iPhoneXR;
+</script>
